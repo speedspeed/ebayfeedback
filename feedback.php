@@ -33,5 +33,14 @@ $str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 $response = request($serverURL, $basicHeaders, $str);
 
 
-print_r(XML2Array::createArray($response));exit;
+$feedbacks = XML2Array::createArray($response);
+
+$feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
+
+if (empty($feedbacks)) {
+    print_r('error'); exit;
+}
+
+
+print_r($feedbacks);exit;
 
