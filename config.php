@@ -1,7 +1,20 @@
 <?php
 
-$ebayName = "Key Set 1";
-$ebayDEVID = "8710ea5b-7e80-43bb-98a9-82e19ae5bf50";
-$ebayAppID = "AlexFedo-8fd2-4d3f-8695-5fd627b7a2c3";
-$ebayCertID = "b7f86d50-df24-48cf-93bf-18117c371193";
-$ebayToken = "AgAAAA**AQAAAA**aAAAAA**aNMiUw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GhDJCBpQ6dj6x9nY+seQ**JJMCAA**AAMAAA**qR3jvKFQOXERBLDjQDoIw5qsAvlLS/n12CkIxQtCyO8Wl3zAZrCVd/cj/zl3ynItiELNG64lTk9wD87Sne5CZe3ZQtuJJaCOxZoAalBDnuM7V7B8D4zSeIMILfSWk9CMMmyH+L44Z3AZ26vi7g2dRx+WOmjUWiFcQZAKtSno/XfPSUWPg9XWm33/zb6NAyRWUNo+pP4aJCHJvtci0Pv/4UfTWTm38ix5LHhkdmBIEP57t8H6jGadSXD7Ty2i0Q2SUFi3p9N+v/BdFu/wiAfFekztOWTdmEZ0KjhWqBm8bzbON38GWSTHlHwzMUFZmft//ptQfomMa0oKKDaR/Psu/erTc/E/08y2dF14g+MwL9oA1K/sKzZswNfJBbL8m9b61XTuZMICOWr8UaxpHp3MnNlLqSWwMOJFmE92HoMHTxFv2AdhczH7wBmqUL46IGq69sVlB1jhZL3aRjApj+d2rEe+vbvwXpIPMXDhjGSwQu7wQSwlhNscjQOF6l+Qg6I3q3lXqjj7B4IKuaGmCQ1wpJ3PTSUVJ4ZhVG98g6oGooUTXJGpuDyiws2MREKtjITiVBdYL/vQkOnshX4pzX85+M1eZufKiiGxxRFvlCNWWOfnEkuMC8U1naWQXhsVjkrpCC3yfRuILGjSMp+tAjVM5KRZjIBcbSjOzNYLXtbcH++ls2v5eif3tWlP9AhO85Ba+3TZH7zrESmE1qDzCfiWlU6DKpnjlDuGsj8eYDcPVJSn1Z9+Syid09iGFY//nPSy";
+$ebayDEVID = "G1D6H1F51LPC75V715818MBNS15FJ5";
+$ebayAppID = "Chandler-62db-42de-a6f5-9de7e39ec71e";
+$ebayCertID = "4827cc52-fb15-4756-9a78-ce04fceae1cf";
+$ebayToken = "AgAAAA**AQAAAA**aAAAAA**sh0jUw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wDkICgCZaDowSdj6x9nY+seQ**QigCAA**AAMAAA**CM5ukzqlgmRmzd7ez0L+Gjjf+wxed+eeSsjiOuWKip2lyRbGbbnOR8DIfpOgLBu9vthXmgzYR5R1JcgEyDETJQ1t095o9q4IDd0Ez6D8/XqJeSCtWl+n9542eNrLpNKl04OVBNjrFAqhcllfBDRYUriNz1JfmeGQJVX5iaE8sGfnu10hvyBoQ9WxyvHkQ0CFXxVPOQipPPkyP8LdqvAMJlnLOTyxx5eYYGjsLrdM0dxJqBQA55MC3Bv8SNLY3cxJfNJUSr6nIhLLzJmWobikckCGyr+ASLDATNAGQx8PwVXsgAgthHj0PvMLHdGCZNdzEmnFpV4Wu0TB0HgtnJdrM/oEUAGY1JYgCLoOjfGwDVnMtY0amm/KSXOeNV7mNfPp9AnfxLipBsk3BD8Q9AZpvSyBvWw/i0nBnS6MIlsbfXkE0Y68KxYB7UGJeS1GNK3q4hMt6UsriXL60qM/B0liRkPjG4WM7KZGQH6vOGYNFIkgCUroxNZUcaKpQYt1sprdDMGzcpDEUpBZBHJuAjRhAJBHAB76O8qK+JGxO3cT5O57S9O9CNolbG1pz3p7NM/FdhKI8or3z9r3RudJctUvn+/P3bP7v5QD8mmc/GS3Vu/QAShq7z05ff3PXi0NveOl/b8zq9+T044FE+AaSMkEDq3noJSGujHjKhie7Ei6QVMBlUN7paThjWvEjFq9/obmahpQUV5wguYwMcmNmycpFgXpblZdnLyahdk1lfCH/zp0qhw9NsGQOg/35JQEOQSy";
+
+$ebayServerURL = "https://api.ebay.com/ws/api.dll";
+
+
+define('TEXT_TOOL_PATH', dirname(__FILE__) . '/');
+define('TEXT_TOOL_TMP_PATH', TEXT_TOOL_PATH . 'tmp/');
+define('TEXT_TOOL_ORG_PATH', TEXT_TOOL_TMP_PATH . 'original/');
+define('TEXT_TOOL_PRV_PATH', TEXT_TOOL_TMP_PATH . 'preview/');
+define('TEXT_TOOL_TEXT_PATH', TEXT_TOOL_TMP_PATH . 'text/');
+define('EBAY_IMAGES_PATH', dirname(__FILE__) . '/ebay_images/');
+
+set_include_path(TEXT_TOOL_PATH . '/lib' . PATH_SEPARATOR. get_include_path());
+
+define('TEXT_TOOL_TEXTEFFECT_PATH', TEXT_TOOL_PATH . 'lib/texteffect');
