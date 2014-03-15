@@ -59,13 +59,30 @@ class ImageMagick
     static function addStar($imageName, $rate)
     {
         $imagePath = TEXT_TOOL_TEXT_PATH . $imageName;
-        $starPath = EBAY_IMAGES_PATH . "iconRedStar_25x25.gif";
+        $star = 'iconYellowStar_25x25.gif';
+        if ($rate > 49) {
+            $star = 'iconBlueStar_25x25.gif';
+        }
+        if ($rate > 99) {
+            $star = 'iconTealStar_25x25.gif';
+        }
+        if ($rate > 499) {
+            $star = 'iconPurpleStar_25x25.gif';
+        }
+        if ($rate > 999) {
+            $star = 'iconRedStar_25x25.gif';
+        }
+        if ($rate > 4999) {
+            $star = 'iconGreenStar_25x25.gif';
+        }
+
+        $starPath = EBAY_IMAGES_PATH . $star;
         self::glue2ImagesHor($starPath, $imagePath);
     }
 
     static function glue2ImagesHor($path1, $path2)
     {
-        $exec_str = "convert $path1 $path2 -transpose miff:- | montage - -geometry +2+2 -tile 1x2 miff:- | convert - -transpose $path2 2>&1";
+        $exec_str = "convert $path1 $path2 -transpose miff:- | montage - -geometry +3+3 -tile 1x2 miff:- | convert - -transpose $path2 2>&1";
         exec($exec_str, $output, $ret);
     }
 
@@ -81,6 +98,21 @@ class ImageMagick
         //$exec_str = "convert $path1 $path2 $path3 -transpose miff:- | montage - -geometry +2+2 -tile 3x1 miff:- | convert - -transpose $ret 2>&1";
         $exec_str = "convert $path1 $path2 $path3 -append $ret 2>&1";
         exec($exec_str, $output, $ret);
+        unlink($path1);
+        unlink($path2);
+        unlink($path3);
+    }
+
+    static function glue5ImagesVer($path1, $path2, $path3, $path4, $path5, $ret)
+    {
+        //$exec_str = "convert $path1 $path2 $path3 -transpose miff:- | montage - -geometry +2+2 -tile 3x1 miff:- | convert - -transpose $ret 2>&1";
+        $exec_str = "convert $path1 $path2 $path3 $path4 $path5 -append $ret 2>&1";
+        exec($exec_str, $output, $ret);
+        unlink($path1);
+        unlink($path2);
+        unlink($path3);
+        unlink($path4);
+        unlink($path5);
     }
 
     static function trim($path)
@@ -190,6 +222,12 @@ class ImageMagick
         $opacity_par = " -alpha Set -fill none -channel Alpha -fx  'u * $level' ";
 
         return $opacity_par;
+    }
+
+    static function addBorder($path, $width)
+    {
+        $exec_str = "convert $path -bordercolor white -border $width $path 2>&1";
+        exec($exec_str, $output, $ret);
     }
 
 
