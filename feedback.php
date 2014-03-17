@@ -86,7 +86,8 @@ foreach ($feedbacks as $feedback) {
     $feedbackImageName = md5($feedback['CommentText'].time()).'.png';
     $path = TEXT_TOOL_TMP_PATH . $feedbackImageName;
     ImageMagick::glue3ImagesVer(TEXT_TOOL_TEXT_PATH.$textImages['str1'], TEXT_TOOL_TEXT_PATH.$textImages['str2'], TEXT_TOOL_TEXT_PATH.$textImages['str3'], $path);
-    ImageMagick::disableTr($path);
+    print_r('<img src="/tmp/'.$feedbackImageName.'">');exit;
+    //ImageMagick::disableTr($path);
     ImageMagick::addBorder($path, 5);
     $feedbackImages[] = $feedbackImageName;
     if (count($feedbackImages) == 5) {

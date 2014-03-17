@@ -41,7 +41,7 @@ class ImageMagick
     static function addPlus($imageName)
     {
         $imagePath = TEXT_TOOL_TEXT_PATH . $imageName;
-        self::addBorder($imagePath, "3x0");
+        self::addBorder($imagePath, "5x0");
         $starPath = EBAY_IMAGES_PATH . "iconPos_16x16.gif";
         self::glue2ImagesHor($starPath, $imagePath);
     }
@@ -67,7 +67,7 @@ class ImageMagick
         }
 
         $starPath = EBAY_IMAGES_PATH . $star;
-        self::addBorder($imagePath, "3x0");
+        self::addBorder($imagePath, "5x0");
         self::glue2ImagesHor($starPath, $imagePath);
     }
 
