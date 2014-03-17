@@ -75,9 +75,11 @@ Send image to Social Networks:
 <br>
 <form method="GET" action="send.php">
     <input type="hidden" name="file" value="<?=$feedbacksImageName?>">
+    <?php if (isset($_SESSION['fbid'])) :?>
     <label>Facebook</label>
     <input type="checkbox" value="1" name="facebook">
     <br>
+    <?php endif; ?>
     <label>Twitter</label>
     <input type="checkbox" value="1" name="twitter">
     <br>

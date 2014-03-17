@@ -13,10 +13,10 @@ $ebayCertID = "4827cc52-fb15-4756-9a78-ce04fceae1cf";
 $ebayToken = "AgAAAA**AQAAAA**aAAAAA**sh0jUw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wDkICgCZaDowSdj6x9nY+seQ**QigCAA**AAMAAA**CM5ukzqlgmRmzd7ez0L+Gjjf+wxed+eeSsjiOuWKip2lyRbGbbnOR8DIfpOgLBu9vthXmgzYR5R1JcgEyDETJQ1t095o9q4IDd0Ez6D8/XqJeSCtWl+n9542eNrLpNKl04OVBNjrFAqhcllfBDRYUriNz1JfmeGQJVX5iaE8sGfnu10hvyBoQ9WxyvHkQ0CFXxVPOQipPPkyP8LdqvAMJlnLOTyxx5eYYGjsLrdM0dxJqBQA55MC3Bv8SNLY3cxJfNJUSr6nIhLLzJmWobikckCGyr+ASLDATNAGQx8PwVXsgAgthHj0PvMLHdGCZNdzEmnFpV4Wu0TB0HgtnJdrM/oEUAGY1JYgCLoOjfGwDVnMtY0amm/KSXOeNV7mNfPp9AnfxLipBsk3BD8Q9AZpvSyBvWw/i0nBnS6MIlsbfXkE0Y68KxYB7UGJeS1GNK3q4hMt6UsriXL60qM/B0liRkPjG4WM7KZGQH6vOGYNFIkgCUroxNZUcaKpQYt1sprdDMGzcpDEUpBZBHJuAjRhAJBHAB76O8qK+JGxO3cT5O57S9O9CNolbG1pz3p7NM/FdhKI8or3z9r3RudJctUvn+/P3bP7v5QD8mmc/GS3Vu/QAShq7z05ff3PXi0NveOl/b8zq9+T044FE+AaSMkEDq3noJSGujHjKhie7Ei6QVMBlUN7paThjWvEjFq9/obmahpQUV5wguYwMcmNmycpFgXpblZdnLyahdk1lfCH/zp0qhw9NsGQOg/35JQEOQSy";
 
 
-$tw_consumer_key    = '2gfF75xRSwnJDgfuwXBUGj59kA';
-$tw_consumer_secret = 'snGgVlYdVfgOeTVl8aQYG5BQRyEbgxqfgu9B9zTpRomIUh58';
-$tw_user_token      = '148xf1479562-RYq76XIfgogfhjttdu0kLlWwQwEfgEM8wlRDMX44rUFPP';
-$tw_user_secret     = 'I7saxfu751zzMnWChgffA0VAiRQIdf2JFwTMLragf6MK4aF8pjbg';
+$tw_consumer_key    = 'Y6utzcOEPrCb4eHpqPS1Q';
+$tw_consumer_secret = 'Vb2pfPW9Kmb65MEjvFosWmLzI4FJPeiFKwrJjcw3Mo';
+$tw_user_token      = '15663798-abkDEEy13XM1MTzls725HyAb3oNAcmlJdDpDklWv9';
+$tw_user_secret     = 'QGmhb2P4oWlJkWOmWanve2soCYsZUXumLNGm69J0z0E3R';
 
 
 $fbApId = "626740884046357";
