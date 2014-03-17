@@ -52,6 +52,7 @@ class ImageMagick
     static function addPlus($imageName)
     {
         $imagePath = TEXT_TOOL_TEXT_PATH . $imageName;
+        self::addBorder($imagePath, 3);
         $starPath = EBAY_IMAGES_PATH . "iconPos_16x16.gif";
         self::glue2ImagesHor($starPath, $imagePath);
     }
@@ -82,7 +83,8 @@ class ImageMagick
 
     static function glue2ImagesHor($path1, $path2)
     {
-        $exec_str = "convert $path1 $path2 -transpose miff:- | montage - -geometry +3+3 -tile 1x2 miff:- | convert - -transpose $path2 2>&1";
+        //$exec_str = "convert $path1 $path2 -transpose miff:- | montage - -geometry +3+3 -tile 1x2 miff:- | convert - -transpose $path2 2>&1";
+        $exec_str = "convert $path1 $path2 +append $path2 2>&1";
         exec($exec_str, $output, $ret);
     }
 
