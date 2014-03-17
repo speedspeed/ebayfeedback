@@ -68,25 +68,26 @@ foreach ($feedbacks as $feedback) {
 
         if ($name == 'str3') {
             $textData['colors'] = array(
-                'color1' => "gray",
-                'color2' => "gray",
+                'color1' => "#cccccc",
+                'color2' => "#cccccc",
             );
         }
 
         $textImages[$name] = ImageMagick::createText($textData);
     }
 
+    print_r('<img src="/tmp/text/'.$textImages['str3'].'">');exit;
+
     ImageMagick::addPlus($textImages['str1']);
     ImageMagick::addStar($textImages['str2'], $feedback['CommentingUserScore']);
     ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str1'], 3);
     ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str2'], 3);
-    ImageMagick::disableTr(TEXT_TOOL_TEXT_PATH . $textImages['str3']);
+    //ImageMagick::disableTr(TEXT_TOOL_TEXT_PATH . $textImages['str3']);
     ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str3'], 3);
 
     $feedbackImageName = md5($feedback['CommentText'].time()).'.png';
     $path = TEXT_TOOL_TMP_PATH . $feedbackImageName;
     ImageMagick::glue3ImagesVer(TEXT_TOOL_TEXT_PATH.$textImages['str1'], TEXT_TOOL_TEXT_PATH.$textImages['str2'], TEXT_TOOL_TEXT_PATH.$textImages['str3'], $path);
-    print_r('<img src="/tmp/'.$feedbackImageName.'">');exit;
     //ImageMagick::disableTr($path);
     ImageMagick::addBorder($path, 5);
     $feedbackImages[] = $feedbackImageName;
