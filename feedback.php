@@ -7,8 +7,9 @@ require_once ('lib/xml.php');
 require_once ('lib/imagemagick.class.php');
 
 $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
+$fbNumber = isset($_GET['number'])?(int)$_GET['number']:5;
 
-$feedbacks = XML2Array::createArray($ebay->getFeedBacks());
+$feedbacks = XML2Array::createArray($ebay->getFeedBacks($fbNumber));
 
 $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
 
@@ -58,21 +59,15 @@ foreach ($feedbacks as $feedback) {
     ImageMagick::glue3ImagesVer(TEXT_TOOL_TEXT_PATH.$textImages['str1'], TEXT_TOOL_TEXT_PATH.$textImages['str2'], TEXT_TOOL_TEXT_PATH.$textImages['str3'], $path);
     //ImageMagick::disableTr($path);
     ImageMagick::addBorder($path, 5);
-    $feedbackImages[] = $feedbackImageName;
-    if (count($feedbackImages) == 5) {
+    $feedbackImages[] = TEXT_TOOL_TMP_PATH.$feedbackImageName;
+    if (count($feedbackImages) == $fbNumber) {
         break;
     }
 }
 
 $feedbacksImageName = md5(rand(0,100000).time()).'.png';
 $path = TEXT_TOOL_TMP_PATH . $feedbacksImageName;
-ImageMagick::glue5ImagesVer(
-    TEXT_TOOL_TMP_PATH.$feedbackImages[0],
-    TEXT_TOOL_TMP_PATH.$feedbackImages[1],
-    TEXT_TOOL_TMP_PATH.$feedbackImages[2],
-    TEXT_TOOL_TMP_PATH.$feedbackImages[3],
-    TEXT_TOOL_TMP_PATH.$feedbackImages[4],
-    $path);
+ImageMagick::glueImagesVer($feedbackImages, $path);
 
 ImageMagick::addBorder($path, 5);
 ?>

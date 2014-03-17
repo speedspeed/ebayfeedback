@@ -94,16 +94,15 @@ class ImageMagick
         unlink($path3);
     }
 
-    static function glue5ImagesVer($path1, $path2, $path3, $path4, $path5, $ret)
+    static function glueImagesVer($paths, $ret)
     {
+        $images = implode(' ', $paths);
         //$exec_str = "convert $path1 $path2 $path3 -transpose miff:- | montage - -geometry +2+2 -tile 3x1 miff:- | convert - -transpose $ret 2>&1";
-        $exec_str = "convert -background white $path1 $path2 $path3 $path4 $path5 -append $ret 2>&1";
+        $exec_str = "convert -background white $images -append $ret 2>&1";
         exec($exec_str, $output, $ret);
-        unlink($path1);
-        unlink($path2);
-        unlink($path3);
-        unlink($path4);
-        unlink($path5);
+        foreach ($paths as $path) {
+            @unlink($path);
+        }
     }
 
     static function trim($path)
