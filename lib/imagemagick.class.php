@@ -17,17 +17,6 @@ class ImageMagick
         return $ret;
     }
 
-    static function getPreviewName($name)
-    {
-        $brName = explode('/', $name);
-        $filename = $brName[count($brName) - 1];
-        $brFilename = explode('.', $filename);
-        $newName = 'preview_' . $brFilename[0] . '_' . time() . '.' . $brFilename[1];
-        $newName = clearName($newName);
-
-        return $newName;
-    }
-
     static function createText($options)
     {
 
@@ -124,60 +113,6 @@ class ImageMagick
         exec($exec_str, $output, $ret);
     }
 
-    static function mergeImages($mainPath, $imagePath, $targetPath, $position)
-    {
-
-        $mainPath = explode('?', $mainPath);
-        $mainPath = $mainPath[0];
-
-        $imagePath = explode('?', $imagePath);
-        $imagePath = $imagePath[0];
-
-        $targetPath = explode('?', $targetPath);
-        $targetPath = $targetPath[0];
-
-        $geometry = "+" . round($position['left']) . "+" . round($position['top']);
-
-        $exec_str = "convert '$mainPath' '$imagePath'  -geometry $geometry -composite '$targetPath' 2>&1";
-        //print($exec_str);exit;
-        exec($exec_str, $output, $ret);
-        //print_r($output);exit;
-    }
-
-
-    static function addBubble($imageName, $options)
-    {
-        $imagePath = TEXT_TOOL_TEXT_PATH . $imageName;
-        $bubbleId = $options['id'];
-        $bubbleSide = $options['side'];
-        $bubbleColor = isset($options['color']) && $options['color'] ? $options['color'] : "#000000";
-        $opac = isset($options['opac']) ? $options['opac'] : 0;
-
-        $bubbleName = $bubbleSide . '_b' . $bubbleId . '.png';
-        $bubblePath = BUBBLES_PATH . $bubbleName;
-
-        $imageSize = getimagesize($imagePath);
-
-        $bubbleSize = explode('x', INIT_BUBBLE_SIZE);
-        $innerSize = explode('x', INIT_BUBBLE_INNER_SIZE);
-        $offset = explode('x', INIT_BUBBLE_OFFSET);
-
-        $ratio = array($innerSize[0] / $imageSize[0], $innerSize[1] / $imageSize[1]);
-        $newBubbleSize = array($bubbleSize[0] / $ratio[0], $bubbleSize[1] / $ratio[1]);
-        $newOffset = array($offset[0] / $ratio[0], $offset[1] / $ratio[1]);
-
-        $resizedBubblePath = TEXT_TOOL_TMP_PATH . time() . '_' . $bubbleName;
-
-        self::resizeBig($bubblePath, $resizedBubblePath, implode('x', $newBubbleSize));
-
-        $colorPath = TEXT_TOOL_TMP_PATH . time() . '_' . $bubbleColor . '_' . $bubbleName;
-        self::getGradient($bubbleColor, $colorPath);
-        self::getColoredBubble($colorPath, $resizedBubblePath, $resizedBubblePath, $opac);
-
-        self::mergeImages($resizedBubblePath, $imagePath, $imagePath, array('left' => $newOffset[0], 'top' => $newOffset[1]));
-
-    }
-
     static function deleteOldFiles($path = TEXT_TOOL_TMP_PATH)
     {
         $files = scandir($path);
@@ -189,43 +124,6 @@ class ImageMagick
         }
     }
 
-    static function getGradient($color1, $filepath, $color2 = "#FFFFFF", $size = "10x100")
-    {
-        $str = "convert  -quality 100% -size $size  gradient:'" . $color1 . "'-'" . $color2 . "' $filepath";
-        //print_r($str);
-        exec($str, $out, $ret);
-        if (!$ret) {
-            return true;
-        }
-        return false;
-    }
-
-    static function getColoredBubble($colorPath, $arrowPath, $filePath, $opac)
-    {
-
-        $opacPar = self::getOpac($opac);
-
-        $str = "convert -quality 100% $arrowPath $colorPath -clut $opacPar $filePath";
-        //print_r($str);
-        exec($str, $out, $ret);
-        if (!$ret) {
-            return true;
-        }
-        return false;
-    }
-
-    static function getOpac($level = 0)
-    {
-        $level = (int)$level;
-        if ($level <= 0) $level = 0;
-        if (100 < $level) $level = 100;
-
-        $level = $level / 100;
-
-        $opacity_par = " -alpha Set -fill none -channel Alpha -fx  'u * $level' ";
-
-        return $opacity_par;
-    }
 
     static function addBorder($path, $width)
     {
