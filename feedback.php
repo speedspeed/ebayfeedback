@@ -76,15 +76,15 @@ foreach ($feedbacks as $feedback) {
         $textImages[$name] = ImageMagick::createText($textData);
     }
 
-    foreach($textImages as $im) {
-        print_r("<img src='/tmp/text/".$im."'>");
-    }
-    exit;
-
     ImageMagick::addPlus($textImages['str1']);
     ImageMagick::addStar($textImages['str2'], $feedback['CommentingUserScore']);
     ImageMagick::disableTr(TEXT_TOOL_TEXT_PATH . $textImages['str3']);
     ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str3'], 3);
+
+    foreach($textImages as $im) {
+        print_r("<img src='/tmp/text/".$im."'>");
+    }
+    exit;
 
     $feedbackImageName = md5($feedback['CommentText'].time()).'.png';
     $path = TEXT_TOOL_TMP_PATH . $feedbackImageName;
