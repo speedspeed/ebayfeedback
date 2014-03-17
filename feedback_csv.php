@@ -5,12 +5,42 @@ require_once ('lib/ebay.php');
 require_once ('lib/cUrl.php');
 require_once ('lib/xml.php');
 
-$ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
+$pages = 5;
 
-$feedbacks = XML2Array::createArray($ebay->getFeedBacks(200));
-$feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
-foreach($feedbacks as $i => $feedback) {
-    $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
+$ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
+$allFeedbacks = array();
+$getNeutral = 1;
+$getNegative = 1;
+for ($i=1; $i<=$pages; $i++) {
+    if ($getNeutral) {
+        $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, 'Neutral'));
+        $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
+        if (!empty($feedbacks)) {
+            foreach($feedbacks as $i => $feedback) {
+                if (isset($feedback['ItemPrice'])) {
+                    $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
+                }
+                $allFeedbacks[] = $feedbacks[$i];
+            }
+        } else {
+            $getNeutral = 0;
+        }
+    }
+    if($getNegative) {
+        $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, 'Negative'));
+        $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
+        if (!empty($feedbacks)) {
+            foreach($feedbacks as $i => $feedback) {
+                if (isset($feedback['ItemPrice'])) {
+                    $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
+                }
+                $allFeedbacks[] = $feedbacks[$i];
+            }
+        } else {
+            $getNegative  = 0;
+        }
+    }
+    //
 }
 
 function download_send_headers($filename) {
@@ -46,5 +76,5 @@ function array2csv(array &$array)
 }
 
 download_send_headers("feedback_export_" . date("Y-m-d") . ".csv");
-echo array2csv($feedbacks);
+echo array2csv($allFeedbacks);
 die();
