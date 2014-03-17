@@ -3,6 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+date_default_timezone_set('America/Los_Angeles');
+
 $ebayDEVID = "G1D6H1F51LPC75V715818MBNS15FJ5";
 $ebayAppID = "Chandler-62db-42de-a6f5-9de7e39ec71e";
 $ebayCertID = "4827cc52-fb15-4756-9a78-ce04fceae1cf";
