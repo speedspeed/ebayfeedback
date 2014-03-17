@@ -59,18 +59,12 @@ foreach ($feedbacks as $feedback) {
             'font' => "Arial",
             'text' => $text,
             'size' => 16,
-            'colors' => array(
-                'color1' => "black",
-                'color2' => "black",
-            ),
+            'color' => "black",
             'rotate' => 0,
         );
 
         if ($name == 'str3') {
-            $textData['colors'] = array(
-                'color1' => "#cccccc",
-                'color2' => "#cccccc",
-            );
+            $textData['color'] = "gray";
         }
 
         $textImages[$name] = ImageMagick::createText($textData);

@@ -23,14 +23,13 @@ class ImageMagick
         $font = $options['font'];
         $text = $options['text'];
         $size = $options['size'];
-        $color1 = $options['colors']['color1'];
-        $color2 = $options['colors']['color2'];
+        $color = $options['color'];
         $rotate = $options['rotate'];
 
-        $imageName = md5($text . $color1 . $color2 . $font . $size . $rotate . time()) . '.png';
+        $imageName = md5($text . $color . $font . $size . $rotate . time()) . '.png';
         $imagePath = TEXT_TOOL_TEXT_PATH . $imageName;
         $textPath = TEXT_TOOL_TEXT_PATH;
-        $exec_str = "cd $textPath;" . TEXT_TOOL_TEXTEFFECT_PATH . " -t '$text' -r $rotate -f $font -b none -p $size -c '$color1'-'$color2' -A 0 '$imagePath' ";
+        $exec_str = "cd $textPath;" . TEXT_TOOL_TEXTEFFECT_PATH . " -t '$text' -r $rotate -f $font -b none -p $size -c '$color' -A 0 '$imagePath' ";
         //print_r($exec_str);exit;
         exec($exec_str, $output, $ret);
         self::trim($imagePath);
