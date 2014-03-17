@@ -72,7 +72,6 @@ class ImageMagick
 
     static function glue2ImagesHor($path1, $path2)
     {
-        //$exec_str = "convert $path1 $path2 -transpose miff:- | montage - -geometry +3+3 -tile 1x2 miff:- | convert - -transpose $path2 2>&1";
         $exec_str = "convert -background white $path1 $path2 +append $path2 2>&1";
         exec($exec_str, $output, $ret);
     }
@@ -82,16 +81,6 @@ class ImageMagick
         $exec_str = "convert $path -background white -flatten  $path 2>&1";
         exec($exec_str, $output, $ret);
         self::trim($path);
-    }
-
-    static function glue3ImagesVer($path1, $path2, $path3, $ret)
-    {
-        //$exec_str = "convert $path1 $path2 $path3 -transpose miff:- | montage - -geometry +2+2 -tile 3x1 miff:- | convert - -transpose $ret 2>&1";
-        $exec_str = "convert -background white $path1 $path2 $path3 -append $ret 2>&1";
-        exec($exec_str, $output, $ret);
-        unlink($path1);
-        unlink($path2);
-        unlink($path3);
     }
 
     static function glueImagesVer($paths, $ret)
