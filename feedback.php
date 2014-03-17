@@ -81,11 +81,6 @@ foreach ($feedbacks as $feedback) {
     ImageMagick::disableTr(TEXT_TOOL_TEXT_PATH . $textImages['str3']);
     ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str3'], 3);
 
-    foreach($textImages as $im) {
-        print_r("<img src='/tmp/text/".$im."'>");
-    }
-    exit;
-
     $feedbackImageName = md5($feedback['CommentText'].time()).'.png';
     $path = TEXT_TOOL_TMP_PATH . $feedbackImageName;
     ImageMagick::glue3ImagesVer(TEXT_TOOL_TEXT_PATH.$textImages['str1'], TEXT_TOOL_TEXT_PATH.$textImages['str2'], TEXT_TOOL_TEXT_PATH.$textImages['str3'], $path);
