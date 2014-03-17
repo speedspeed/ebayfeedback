@@ -68,10 +68,8 @@ foreach ($feedbacks as $feedback) {
 
         if ($name == 'str3') {
             $textData['colors'] = array(
-                //'color1' => "grey",
-                //'color2' => "grey",
-                'color1' => "#CCCCCC",
-                'color2' => "#CCCCCC",
+                'color1' => "gray",
+                'color2' => "gray",
             );
         }
 
