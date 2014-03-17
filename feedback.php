@@ -70,8 +70,6 @@ foreach ($feedbacks as $feedback) {
         $textImages[$name] = ImageMagick::createText($textData);
     }
 
-    print_r('<img src="/tmp/text/'.$textImages['str3'].'">');exit;
-
     ImageMagick::addPlus($textImages['str1']);
     ImageMagick::addStar($textImages['str2'], $feedback['CommentingUserScore']);
     ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str1'], 3);
