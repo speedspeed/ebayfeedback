@@ -78,7 +78,9 @@ foreach ($feedbacks as $feedback) {
 
     ImageMagick::addPlus($textImages['str1']);
     ImageMagick::addStar($textImages['str2'], $feedback['CommentingUserScore']);
-    ImageMagick::disableTr(TEXT_TOOL_TEXT_PATH . $textImages['str3']);
+    ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str1'], 3);
+    ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str2'], 3);
+    //ImageMagick::disableTr(TEXT_TOOL_TEXT_PATH . $textImages['str3']);
     ImageMagick::addBorder(TEXT_TOOL_TEXT_PATH . $textImages['str3'], 3);
 
     $feedbackImageName = md5($feedback['CommentText'].time()).'.png';

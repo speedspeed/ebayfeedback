@@ -91,7 +91,7 @@ class ImageMagick
 
     static function disableTr($path)
     {
-        $exec_str = "convert -flatten $path $path 2>&1";
+        $exec_str = "convert $path -background white -flatten  $path 2>&1";
         exec($exec_str, $output, $ret);
         self::trim($path);
     }
@@ -99,7 +99,7 @@ class ImageMagick
     static function glue3ImagesVer($path1, $path2, $path3, $ret)
     {
         //$exec_str = "convert $path1 $path2 $path3 -transpose miff:- | montage - -geometry +2+2 -tile 3x1 miff:- | convert - -transpose $ret 2>&1";
-        $exec_str = "convert $path1 $path2 $path3 -append $ret 2>&1";
+        $exec_str = "convert $path1 $path2 $path3 -append -background white $ret 2>&1";
         exec($exec_str, $output, $ret);
         unlink($path1);
         unlink($path2);
@@ -109,7 +109,7 @@ class ImageMagick
     static function glue5ImagesVer($path1, $path2, $path3, $path4, $path5, $ret)
     {
         //$exec_str = "convert $path1 $path2 $path3 -transpose miff:- | montage - -geometry +2+2 -tile 3x1 miff:- | convert - -transpose $ret 2>&1";
-        $exec_str = "convert $path1 $path2 $path3 $path4 $path5 -append $ret 2>&1";
+        $exec_str = "convert $path1 $path2 $path3 $path4 $path5 -append -background white $ret 2>&1";
         exec($exec_str, $output, $ret);
         unlink($path1);
         unlink($path2);
