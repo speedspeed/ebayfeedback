@@ -1,38 +1,14 @@
 <?php
 require_once('config.php');
 
+require_once ('lib/ebay.php');
 require_once ('lib/cUrl.php');
 require_once ('lib/xml.php');
 require_once ('lib/imagemagick.class.php');
 
+$ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 
-$headers = array (
-    "X-EBAY-API-COMPATIBILITY-LEVEL:863",
-    "X-EBAY-API-DEV-NAME:".$ebayDEVID,
-    "X-EBAY-API-APP-NAME:".$ebayAppID,
-    "X-EBAY-API-CERT-NAME:".$ebayCertID,
-    "X-EBAY-API-SITEID:0",
-    "X-EBAY-API-CALL-NAME:GetFeedback",
-);
-
-$str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
-<GetFeedbackRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">
-<RequesterCredentials>
-<eBayAuthToken>".$ebayToken."</eBayAuthToken>
-</RequesterCredentials>
-<CommentType>Positive</CommentType>
-<Pagination>
-<EntriesPerPage>5</EntriesPerPage>
-<PageNumber>1</PageNumber>
-</Pagination>
-<DetailLevel>ReturnAll</DetailLevel>
-<Version>863</Version>
-</GetFeedbackRequest>​​";
-
-$response = request($ebayServerURL, $headers, $str);
-
-
-$feedbacks = XML2Array::createArray($response);
+$feedbacks = XML2Array::createArray($ebay->getFeedBacks());
 
 $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
 
