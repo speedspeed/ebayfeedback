@@ -74,7 +74,7 @@ class ImageMagick
     static function glue2ImagesHor($path1, $path2)
     {
         //$exec_str = "convert $path1 $path2 -transpose miff:- | montage - -geometry +3+3 -tile 1x2 miff:- | convert - -transpose $path2 2>&1";
-        $exec_str = "convert $path1 $path2 +append $path2 2>&1";
+        $exec_str = "convert $path1 $path2 +append -background white $path2 2>&1";
         exec($exec_str, $output, $ret);
     }
 
