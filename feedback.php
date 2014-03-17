@@ -73,7 +73,7 @@ ImageMagick::addBorder($path, 5);
 <br>
 Send image to Social Networks:
 <br>
-<form method="POST" action="send.php">
+<form method="GET" action="send.php">
     <input type="hidden" name="file" value="<?=$feedbacksImageName?>">
     <label>Facebook</label>
     <input type="checkbox" value="1" name="facebook">

@@ -3,6 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+session_start();
+
 date_default_timezone_set('America/Los_Angeles');
 
 $ebayDEVID = "G1D6H1F51LPC75V715818MBNS15FJ5";
@@ -15,6 +17,10 @@ $tw_consumer_key    = '2gfF75xRSwnJDgfuwXBUGj59kA';
 $tw_consumer_secret = 'snGgVlYdVfgOeTVl8aQYG5BQRyEbgxqfgu9B9zTpRomIUh58';
 $tw_user_token      = '148xf1479562-RYq76XIfgogfhjttdu0kLlWwQwEfgEM8wlRDMX44rUFPP';
 $tw_user_secret     = 'I7saxfu751zzMnWChgffA0VAiRQIdf2JFwTMLragf6MK4aF8pjbg';
+
+
+$fbApId = "626740884046357";
+$fbAppSecret = "668a7fa9741a3ef24693fda7a1c4808d";
 
 
 $ebayServerURL = "https://api.ebay.com/ws/api.dll";
