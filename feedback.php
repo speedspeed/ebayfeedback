@@ -78,8 +78,10 @@ Send image to Social Networks:
     <?php if (isset($_SESSION['fbid'])) :?>
     <label>Facebook</label>
     <input type="checkbox" value="1" name="facebook">
-    <br>
+    <?php else:  ?>
+    <a href="fb_login.php">login to facebook to upload pic</a>
     <?php endif; ?>
+    <br>
     <label>Twitter</label>
     <input type="checkbox" value="1" name="twitter">
     <br>

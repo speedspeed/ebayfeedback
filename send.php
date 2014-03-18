@@ -38,7 +38,7 @@ if (isset($_GET['twitter']) && $_GET['twitter'] ==1) {
         'multipart' => true
     ));
 
-    $tmhOAuth->render_response();
+    print_r($code);
 }
 
 
