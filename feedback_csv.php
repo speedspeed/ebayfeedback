@@ -9,35 +9,43 @@ $pages = 5;
 
 $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 $allFeedbacks = array();
-$header = array("CommentingUser","CommentingUserScore","CommentText","CommentTime","CommentType","ItemID","Role","FeedbackID","TransactionID","OrderLineItemID","ItemTitle","ItemPrice","ReqType");
+$header = array("CommentingUser","CommentingUserScore","CommentText","CommentTime","CommentType","ItemID","Role","FeedbackID","TransactionID","OrderLineItemID","ItemTitle","ItemPrice","isWithdrawn");
 $types = array(
-    'Neutral' => 1,
-    'Negative' => 1,
-    'Withdrawn' => 1,
-    'IndependentlyWithdrawn' => 1
+    'Neutral',
+    'Negative',
+    'Withdrawn',
+    'IndependentlyWithdrawn'
 );
+
+foreach($types as $type) {
+    $$type = 1;
+}
 
 for ($i=1; $i<=$pages; $i++) {
 
-    foreach($types as $type => $get) {
-        if ($get) {
+    foreach($types as $type) {
+        if ($$type) {
             $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, $type));
             $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
+
             if (!empty($feedbacks)) {
                 foreach($feedbacks as $i => $feedback) {
                     if (isset($feedback['ItemPrice'])) {
                         $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
                     }
-                    $feedbacks[$i]['ReqType'] = $type;
                     $tmp = array();
                     foreach($header as $key) {
                         $tmp[$key] = isset($feedbacks[$i][$key])?$feedbacks[$i][$key]:'';
                     }
-
-                    $allFeedbacks[] = $tmp;
+                    if (in_array($type, array("Withdrawn", 'IndependentlyWithdrawn')) && isset($allFeedbacks[$tmp['ItemID'].$tmp['TransactionID']])) {
+                        $allFeedbacks[$tmp['ItemID'].$tmp['TransactionID']]['isWithdrawn'] = 'yes';
+                    } else {
+                        $tmp['isWithdrawn'] = 'no';
+                        $allFeedbacks[$tmp['ItemID'].$tmp['TransactionID']] = $tmp;
+                    }
                 }
             } else {
-                $types[$type] = 0;
+                $$type = 0;
             }
         }
     }
