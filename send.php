@@ -38,7 +38,7 @@ if (isset($_GET['twitter']) && $_GET['twitter'] ==1) {
         'multipart' => true
     ));
 
-    print_r($code);
+    print_r("Uploaded to twitter<br>");
 }
 
 
@@ -86,13 +86,11 @@ if (isset($_GET['facebook']) && $_GET['facebook'] ==1) {
                 }
             }
             if (!$album_uid) {
-                //Create an album
                 $album_details = array(
                     'message' => $name,
                     'name' => $name
                 );
                 $create_album = $facebook->api('/me/albums', 'post', $album_details);
-                //Get album ID of the album you've just created
                 $album_uid = $create_album['id'];
             }
 
@@ -109,7 +107,7 @@ if (isset($_GET['facebook']) && $_GET['facebook'] ==1) {
 
                 $upload_photo = $facebook->api('/' . $album_uid . '/photos', 'post', $photo_details);
 
-            $message = "You're Almost Done!";
+            $message = "Uploaded to facebook<br>";
         } else {
             $loginUrl = $facebook->getLoginUrl(array('scope' => 'user_photos,publish_stream'));
             header("Location:$loginUrl");
