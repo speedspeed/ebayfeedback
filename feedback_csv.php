@@ -5,7 +5,7 @@ require_once ('lib/ebay.php');
 require_once ('lib/cUrl.php');
 require_once ('lib/xml.php');
 
-$pages = 50;
+$pages = 5;
 
 $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 $allFeedbacks = array();
@@ -25,7 +25,7 @@ for ($i=1; $i<=$pages; $i++) {
 
     foreach($types as $type) {
         if ($$type) {
-            $feedbacks = XML2Array::createArray($ebay->getFeedBacks(25, $i, $type));
+            $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, $type));
             $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
 
             if (!empty($feedbacks)) {
