@@ -9,69 +9,38 @@ $pages = 5;
 
 $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 $allFeedbacks = array();
-$getNeutral = 1;
-$getNegative = 1;
-$getIndependentlyWithdrawn = 1;
-$getWithdrawn = 1;
-for ($i=1; $i<=$pages; $i++) {
-    if ($getNeutral) {
-        $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, 'Neutral'));
-        $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
-        if (!empty($feedbacks)) {
-            foreach($feedbacks as $i => $feedback) {
-                if (isset($feedback['ItemPrice'])) {
-                    $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
-                }
-                $allFeedbacks[] = $feedbacks[$i];
-            }
-        } else {
-            $getNeutral = 0;
-        }
-    }
-    if($getNegative) {
-        $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, 'Negative'));
-        $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
-        if (!empty($feedbacks)) {
-            foreach($feedbacks as $i => $feedback) {
-                if (isset($feedback['ItemPrice'])) {
-                    $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
-                }
-                $allFeedbacks[] = $feedbacks[$i];
-            }
-        } else {
-            $getNegative  = 0;
-        }
-    }
-    if($getWithdrawn) {
-        $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, 'Withdrawn'));
-        $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
-        if (!empty($feedbacks)) {
-            foreach($feedbacks as $i => $feedback) {
-                if (isset($feedback['ItemPrice'])) {
-                    $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
-                }
-                $allFeedbacks[] = $feedbacks[$i];
-            }
-        } else {
-            $getWithdrawn  = 0;
-        }
-    }
-    if($getIndependentlyWithdrawn) {
-        $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, 'IndependentlyWithdrawn'));
-        $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
-        if (!empty($feedbacks)) {
-            foreach($feedbacks as $i => $feedback) {
-                if (isset($feedback['ItemPrice'])) {
-                    $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
-                }
-                $allFeedbacks[] = $feedbacks[$i];
-            }
-        } else {
-            $getIndependentlyWithdrawn  = 0;
-        }
-    }
+$header = array("CommentingUser","CommentingUserScore","CommentText","CommentTime","CommentType","ItemID","Role","FeedbackID","TransactionID","OrderLineItemID","ItemTitle","ItemPrice","ReqType");
+$types = array(
+    'Neutral' => 1,
+    'Negative' => 1,
+    'Withdrawn' => 1,
+    'IndependentlyWithdrawn' => 1
+);
 
-    //
+for ($i=1; $i<=$pages; $i++) {
+
+    foreach($types as $type => $get) {
+        if ($get) {
+            $feedbacks = XML2Array::createArray($ebay->getFeedBacks(200, $i, $type));
+            $feedbacks = isset($feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail'])?$feedbacks["GetFeedbackResponse"]['FeedbackDetailArray']['FeedbackDetail']:array();
+            if (!empty($feedbacks)) {
+                foreach($feedbacks as $i => $feedback) {
+                    if (isset($feedback['ItemPrice'])) {
+                        $feedbacks[$i]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
+                    }
+                    $feedbacks[$i]['ReqType'] = $type;
+                    $tmp = array();
+                    foreach($header as $key) {
+                        $tmp[$key] = isset($feedbacks[$i][$key])?$feedbacks[$i][$key]:'';
+                    }
+
+                    $allFeedbacks[] = $tmp;
+                }
+            } else {
+                $types[$type] = 0;
+            }
+        }
+    }
 }
 
 function download_send_headers($filename) {
