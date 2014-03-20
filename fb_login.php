@@ -14,6 +14,8 @@ $session = $facebook->getUser();
 $me = null;
 
 if ($session) {
+    $access_token = $facebook->getAccessToken();
+    file_put_contents(dirname(__FILE__).'fb_token', $access_token);
     try {
         $me = $facebook->api('/me');
     } catch (FacebookApiException $e) {

@@ -2,7 +2,6 @@
 require_once("config.php");
 ?>
 <a href="/feedback_csv.php">Download CSV with feedbacks</a>
-
 <?php if (!isset($_SESSION['fbid'])) :?>
 <br>
 <a href="fb_login.php">login to facebook to upload pic</a>

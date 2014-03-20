@@ -14,35 +14,6 @@ if (!file_exists($filePath)) {
 
 
 
-if (isset($_GET['twitter']) && $_GET['twitter'] ==1) {
-    include('lib/tmhOAuth/tmhOAuth.php');
-
-    $tmhOAuth = new tmhOAuth(array(
-        'consumer_key'    => $tw_consumer_key,
-        'consumer_secret' => $tw_consumer_secret,
-        'user_token'      => $tw_user_token,
-        'user_secret'     => $tw_user_secret,
-    ));
-
-
-
-    $params = array(
-        'media[]' => "@{$filePath};type=image/png;filename=".basename($filePath),
-        'status'  => "New Feedback"
-    );
-
-    $code = $tmhOAuth->user_request(array(
-        'method' => 'POST',
-        'url' => $tmhOAuth->url("1.1/statuses/update_with_media"),
-        'params' => $params,
-        'multipart' => true
-    ));
-
-    print_r("Uploaded to twitter<br>");
-}
-
-
-
 if (isset($_GET['facebook']) && $_GET['facebook'] ==1) {
 
     include('lib/facebook.php');
@@ -59,23 +30,8 @@ if (isset($_GET['facebook']) && $_GET['facebook'] ==1) {
     $facebook = new Facebook($fbConf);
 
     $session = $facebook->getUser();
-    //print_r($session); exit;
-    $me = null;
+    $token = file_put_contents(dirname(__FILE__).'fb_token', $access_token);
 
-    if ($session) {
-        try {
-            $me = $facebook->api('/me');
-        } catch (FacebookApiException $e) {
-            error_log($e);
-        }
-    }
-
-
-    $message = '';
-
-    try {
-
-        if ($me && $facebook->checkPermission('user_photos') && $facebook->checkPermission('publish_stream')) {
             $facebook->setFileUploadSupport(true);
 
             $albums = $facebook->api('/me/albums', 'get');
@@ -110,14 +66,6 @@ if (isset($_GET['facebook']) && $_GET['facebook'] ==1) {
                 $upload_photo = $facebook->api('/' . $album_uid . '/photos', 'post', $photo_details);
 
             $message = "Uploaded to facebook<br>";
-        } else {
-            $loginUrl = $facebook->getLoginUrl(array('scope' => 'user_photos,publish_stream'));
-            header("Location:$loginUrl");
-        }
-    } catch (Exception $e) {
-        $erMes = $e->getMessage();
-        $message = "Something went wrong. Please try again later." . $erMes;
-    }
 
     print_r($message);
 }
