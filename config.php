@@ -36,3 +36,19 @@ define('EBAY_IMAGES_PATH', dirname(__FILE__) . '/ebay_images/');
 set_include_path(TEXT_TOOL_PATH . '/lib' . PATH_SEPARATOR. get_include_path());
 
 define('TEXT_TOOL_TEXTEFFECT_PATH', TEXT_TOOL_PATH . 'lib/texteffect');
+
+
+define('DATABASE_HOST', "localhost");
+define('DATABASE_USER', "root");
+define('DATABASE_PASS', "root");
+define('DATABASE_NAME', "feedbacks");
+
+
+include_once(dirname(__FILE__).'/lib/adodb5/adodb.inc.php');
+
+
+$db = ADONewConnection('mysql'); # eg 'mysql' or 'postgres'
+
+//$db->debug = true;
+
+$db->Connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);

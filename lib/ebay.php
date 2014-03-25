@@ -19,7 +19,7 @@ public function __construct($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken)
     $this->ebayToken = $ebayToken;
 }
 
-public function getFeedBacks($number = 100, $page = 1, $type = "Positive")
+public function getFeedBacks($number = 100, $page = 1, $type = null)
 {
     $headers = $this->baseHeaders;
     $headers[] = "X-EBAY-API-CALL-NAME:GetFeedback";
@@ -28,9 +28,12 @@ public function getFeedBacks($number = 100, $page = 1, $type = "Positive")
 <GetFeedbackRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">
 <RequesterCredentials>
 <eBayAuthToken>".$this->ebayToken."</eBayAuthToken>
-</RequesterCredentials>
-<CommentType>".$type."</CommentType>
-<Pagination>
+</RequesterCredentials>";
+
+    if ($type) {
+        $str .= "<CommentType>".$type."</CommentType>";
+    }
+    $str .= "<Pagination>
 <EntriesPerPage>".$number."</EntriesPerPage>
 <PageNumber>".$page."</PageNumber>
 </Pagination>
