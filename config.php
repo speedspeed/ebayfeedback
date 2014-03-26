@@ -49,6 +49,6 @@ include_once(dirname(__FILE__).'/lib/adodb5/adodb.inc.php');
 
 $db = ADONewConnection('mysql'); # eg 'mysql' or 'postgres'
 
-//$db->debug = true;
+$db->debug = true;
 
 $db->Connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME);

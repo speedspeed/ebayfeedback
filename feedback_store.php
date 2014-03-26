@@ -5,12 +5,12 @@ require_once ('lib/ebay.php');
 require_once ('lib/cUrl.php');
 require_once ('lib/xml.php');
 
-$pages = 500;
+$pages = 1;
 
 $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 $allFeedbacks = array();
 
-$header = array("CommentingUser","CommentingUserScore","CommentText","CommentTime","CommentType","ItemID","Role","FeedbackID","TransactionID","OrderLineItemID","ItemTitle","ItemPrice");
+$header = array("CommentingUser","CommentingUserScore","CommentText","CommentTime","CommentType","ItemID","Role","FeedbackID","TransactionID","OrderLineItemID","ItemTitle","ItemPrice", "currencyID");
 $sql = "SELECT 1 FROM feedbacks";
 $rs = $db->Execute($sql);
 
@@ -22,7 +22,8 @@ for ($i=1; $i<=$pages; $i++) {
     if (!empty($feedbacks)) {
         foreach($feedbacks as $j => $feedback) {
             if (isset($feedback['ItemPrice'])) {
-                $feedbacks[$j]['ItemPrice'] = $feedback['ItemPrice']['@value'] . ' ' . $feedback['ItemPrice']['@attributes']['currencyID'];
+                $feedbacks[$j]['ItemPrice'] = $feedback['ItemPrice']['@value'];
+                $feedbacks[$j]['currencyID'] = $feedback['ItemPrice']['@attributes']['currencyID'];
             }
             $tmp = array();
             foreach($header as $key) {
@@ -30,6 +31,8 @@ for ($i=1; $i<=$pages; $i++) {
             }
 
             $updateSQL = $db->GetInsertSQL($rs, $tmp);
+
+            print_r($updateSQL);exit;
 
             $db->Execute($updateSQL);
         }
