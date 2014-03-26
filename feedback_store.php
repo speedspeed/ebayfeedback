@@ -5,7 +5,7 @@ require_once ('lib/ebay.php');
 require_once ('lib/cUrl.php');
 require_once ('lib/xml.php');
 
-$pages = 1;
+$pages = 500;
 
 $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 $allFeedbacks = array();
