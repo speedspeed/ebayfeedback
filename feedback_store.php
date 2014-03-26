@@ -11,8 +11,7 @@ $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 $allFeedbacks = array();
 
 $header = array("CommentingUser","CommentingUserScore","CommentText","CommentTime","CommentType","ItemID","Role","FeedbackID","TransactionID","OrderLineItemID","ItemTitle","ItemPrice", "currencyID");
-$sql = "SELECT 1 FROM feedbacks";
-$rs = $db->Execute($sql);
+$sql = "SELECT * FROM feedbacks where FeedbackID = -1";
 
 for ($i=1; $i<=$pages; $i++) {
     print_r($i);
@@ -29,10 +28,8 @@ for ($i=1; $i<=$pages; $i++) {
             foreach($header as $key) {
                 $tmp[$key] = isset($feedbacks[$j][$key])?$feedbacks[$j][$key]:'';
             }
-
+            $rs = $db->Execute($sql);
             $updateSQL = $db->GetInsertSQL($rs, $tmp);
-
-            print_r($updateSQL);exit;
 
             $db->Execute($updateSQL);
         }
