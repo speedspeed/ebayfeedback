@@ -7,7 +7,7 @@
 -- Server version: 5.1.73
 -- PHP Version: 5.4.25-1+sury.org~lucid+2
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE=`NO_AUTO_VALUE_ON_ZERO`;
 
 --
 -- Database: `feedbacks`
@@ -34,4 +34,23 @@ CREATE TABLE IF NOT EXISTS `feedbacks` (
   `ItemPrice` decimal(11,5) NOT NULL,
   `currencyID` varchar(50) NOT NULL,
   KEY `FeedbackID` (`FeedbackID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE IF NOT EXISTS `cases` (
+  `caseId` varchar(50) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `userId` varchar(50) NOT NULL,
+  `EBPSNADStatus` varchar(50) NOT NULL,
+  `itemId` varchar(50) NOT NULL,
+  `respondByDate` varchar(50) NOT NULL,
+  `creationDate` varchar(50) NOT NULL,
+  `lastModifiedDate` varchar(50) NOT NULL,
+  `openReason` varchar(50) NOT NULL,
+  `decision` varchar(50) NOT NULL,
+  `agreedRefundAmount` varchar(50) NOT NULL,
+  `detailStatus` varchar(50) NOT NULL,
+  `initialBuyerExpectation` varchar(50) NOT NULL,
+  KEY `caseId` (`caseId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
