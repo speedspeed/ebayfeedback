@@ -37,20 +37,19 @@ CREATE TABLE IF NOT EXISTS `feedbacks` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
-
 CREATE TABLE IF NOT EXISTS `cases` (
   `caseId` varchar(50) NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `userId` varchar(50) NOT NULL,
-  `EBPSNADStatus` varchar(50) NOT NULL,
-  `itemId` varchar(50) NOT NULL,
-  `respondByDate` varchar(50) NOT NULL,
-  `creationDate` varchar(50) NOT NULL,
-  `lastModifiedDate` varchar(50) NOT NULL,
-  `openReason` varchar(50) NOT NULL,
-  `decision` varchar(50) NOT NULL,
-  `agreedRefundAmount` varchar(50) NOT NULL,
-  `detailStatus` varchar(50) NOT NULL,
-  `initialBuyerExpectation` varchar(50) NOT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `userId` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `itemId` varchar(50) DEFAULT NULL,
+  `respondByDate` varchar(50) DEFAULT NULL,
+  `creationDate` varchar(50) DEFAULT NULL,
+  `lastModifiedDate` varchar(50) DEFAULT NULL,
+  `openReason` varchar(50) DEFAULT NULL,
+  `decision` varchar(50) DEFAULT NULL,
+  `agreedRefundAmount` varchar(50) DEFAULT NULL,
+  `detailStatus` varchar(50) DEFAULT NULL,
+  `initialBuyerExpectation` varchar(50) DEFAULT NULL,
   KEY `caseId` (`caseId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
