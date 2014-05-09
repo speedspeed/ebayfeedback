@@ -53,3 +53,39 @@ CREATE TABLE IF NOT EXISTS `cases` (
   `initialBuyerExpectation` varchar(50) DEFAULT NULL,
   KEY `caseId` (`caseId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `customer_reports` (
+`order_source` varchar(50) NOT NULL,
+`account` varchar(50) NOT NULL,
+`txn_id` varchar(50) NOT NULL,
+`txn_id2` varchar(50) NOT NULL,
+`date` varchar(50) NOT NULL,
+`payment_type` varchar(50) NOT NULL,
+`payment_auth_info` varchar(50) NOT NULL,
+`first_name` varchar(50) NOT NULL,
+`last_name` varchar(50) NOT NULL,
+`payer_email` varchar(50) NOT NULL,
+`contact_phone` varchar(50) NOT NULL,
+`address_country` varchar(50) NOT NULL,
+`address_state` varchar(50) NOT NULL,
+`address_zip` varchar(50) NOT NULL,
+`address_city` varchar(50) NOT NULL,
+`address_street` varchar(50) NOT NULL,
+`address_street2` varchar(50) NOT NULL,
+`total` varchar(50) NOT NULL,
+`shipping` varchar(50) NOT NULL,
+`tax` varchar(50) NOT NULL,
+`discount` varchar(50) NOT NULL,
+`fee` varchar(50) NOT NULL,
+`ship_date` varchar(50) NOT NULL,
+`carrier` varchar(50) NOT NULL,
+`method` varchar(50) NOT NULL,
+`tracking` varchar(50) NOT NULL,
+`postage` varchar(50) NOT NULL,
+`num_order_lines` varchar(50) NOT NULL,
+`items` varchar(50) NOT NULL,
+`qtys` varchar(50) NOT NULL,
+`skus` varchar(50) NOT NULL,
+`subtotals` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
