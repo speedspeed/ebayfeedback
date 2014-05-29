@@ -20,7 +20,7 @@ for ($i=1; $i<=$pages; $i++) {
     //print_r($orders);exit;
 
     if (!empty($orders)) {
-        print_r("cases: ".count($orders) . "\n");
+        print_r("orders: ".count($orders) . "\n");
         foreach($orders as $j => $order) {
 
             $sql = "SELECT * FROM orders where OrderID = '".$order['OrderID']."'";
