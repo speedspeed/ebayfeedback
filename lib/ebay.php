@@ -109,7 +109,7 @@ class Ebay
     }
 
 
-    public function getCompleteOrders($number = 200, $page = 1)
+    public function getCompleteOrders($number = 100, $page = 1)
     {
         $headers = $this->baseHeaders;
         $headers[] = "X-EBAY-API-CALL-NAME:GetOrders";

@@ -139,8 +139,17 @@ CREATE TABLE IF NOT EXISTS `paypal_reports` (
 `balance_impact` varchar(50) NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-
-
-
-
 ALTER TABLE  `cases` ADD  `transactionId` VARCHAR( 50 ) NOT NULL AFTER  `itemId`;
+
+
+CREATE TABLE IF NOT EXISTS  `orders` (
+  `OrderID` VARCHAR( 50 ) NOT NULL ,
+  `AmountPaid` VARCHAR( 50 ) DEFAULT NULL ,
+  `CreatedTime` VARCHAR( 50 ) DEFAULT NULL ,
+  `PaymentMethods` VARCHAR( 50 ) DEFAULT NULL ,
+  `ItemID` VARCHAR( 50 ) DEFAULT NULL ,
+  `QuantityPurchased` VARCHAR( 50 ) DEFAULT NULL ,
+  `TransactionID` VARCHAR( 50 ) DEFAULT NULL ,
+  `BuyerUserID` VARCHAR( 50 ) DEFAULT NULL ,
+  KEY  `OrderID` (  `OrderID` )
+) ENGINE = MYISAM DEFAULT CHARSET = latin1;
