@@ -138,3 +138,9 @@ CREATE TABLE IF NOT EXISTS `paypal_reports` (
 `contact_phone_number` varchar(50) NULL,
 `balance_impact` varchar(50) NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+
+
+
+ALTER TABLE  `cases` ADD  `transactionId` VARCHAR( 50 ) NOT NULL AFTER  `itemId`;

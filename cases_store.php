@@ -13,6 +13,7 @@ for ($i=1; $i<=$pages; $i++) {
     print_r("page ".$i."\n");
     $cases = XML2Array::createArray($ebay->getCases(200, $i));
     $cases = isset($cases["soapenv:Envelope"]["soapenv:Body"]["getUserCasesResponse"]["cases"]["caseSummary"])?$cases["soapenv:Envelope"]["soapenv:Body"]["getUserCasesResponse"]["cases"]["caseSummary"]:array();
+
     if (!empty($cases)) {
         print_r("cases: ".count($cases) . "\n");
         foreach($cases as $j => $caseShort) {
@@ -43,6 +44,7 @@ for ($i=1; $i<=$pages; $i++) {
                     "userId" => isset($caseSummary['otherParty']['userId'])?$caseSummary['otherParty']['userId']:'',
                     "status" => isset($status[0])?$status[0]:'',
                     "itemId" => isset($caseSummary['item']['itemId'])?$caseSummary['item']['itemId']:'',
+                    "transactionId" => isset($caseSummary['item']['transactionId'])?$caseSummary['item']['transactionId']:'',
                     "respondByDate" => isset($caseSummary["respondByDate"])?$caseSummary["respondByDate"]:'',
                     "creationDate" => isset($caseSummary["creationDate"])?$caseSummary["creationDate"]:'',
                     "lastModifiedDate" => isset($caseSummary["lastModifiedDate"])?$caseSummary["lastModifiedDate"]:'',

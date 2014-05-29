@@ -107,4 +107,33 @@ class Ebay
 
         return request($url, $headers, $str);
     }
+
+
+    public function getCompleteOrders($number = 200, $page = 1)
+    {
+        $headers = $this->baseHeaders;
+        $headers[] = "X-EBAY-API-CALL-NAME:GetOrders";
+
+        $from = date('Y-m-d', strtotime('-90 days'));
+        $to = date('Y-m-d');
+
+        $str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<GetOrdersRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">
+    <RequesterCredentials>
+        <eBayAuthToken>".$this->ebayToken."</eBayAuthToken>
+    </RequesterCredentials>
+    <CreateTimeFrom>".$from."</CreateTimeFrom>
+    <CreateTimeTo>".$to."</CreateTimeTo>
+    <OrderRole>Seller</OrderRole>
+    <OrderStatus>Completed</OrderStatus>
+    <Pagination>
+        <EntriesPerPage>" . $number . "</EntriesPerPage>
+        <PageNumber>" . $page . "</PageNumber>
+    </Pagination>
+    <Version>869</Version>
+</GetOrdersRequest>​​";
+
+
+        return request($this->ebayServerURL, $headers, $str);
+    }
 }
