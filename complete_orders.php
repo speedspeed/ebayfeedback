@@ -10,8 +10,6 @@ $pages = 500;
 $ebay = new Ebay($ebayDEVID, $ebayAppID, $ebayCertID, $ebayToken);
 $allFeedbacks = array();
 
-$header = array("CommentingUser","CommentingUserScore","CommentText","CommentTime","CommentType","ItemID","Role","FeedbackID","TransactionID","OrderLineItemID","ItemTitle","ItemPrice", "currencyID");
-
 for ($i=1; $i<=$pages; $i++) {
     print_r($i);
     $orders = XML2Array::createArray($ebay->getCompleteOrders(100, $i));
@@ -39,6 +37,7 @@ for ($i=1; $i<=$pages; $i++) {
                 "ItemID" => $order['TransactionArray']['Transaction']['Item']['ItemID'],
                 "QuantityPurchased" => $order['TransactionArray']['Transaction']['QuantityPurchased'],
                 "TransactionID" => $order['TransactionArray']['Transaction']['TransactionID'],
+                "sku" =>$order['TransactionArray']['Transaction']['Item']['SKU'],
                 "BuyerUserID" => $order['BuyerUserID']
             );
 

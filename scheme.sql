@@ -153,3 +153,5 @@ CREATE TABLE IF NOT EXISTS  `orders` (
   `BuyerUserID` VARCHAR( 50 ) DEFAULT NULL ,
   KEY  `OrderID` (  `OrderID` )
 ) ENGINE = MYISAM DEFAULT CHARSET = latin1;
+
+ALTER TABLE  `orders` ADD  `sku` VARCHAR( 50 ) NOT NULL AFTER  `BuyerUserID`;
