@@ -114,7 +114,7 @@ class Ebay
         $headers = $this->baseHeaders;
         $headers[] = "X-EBAY-API-CALL-NAME:GetOrders";
 
-        $from = date('Y-m-d', strtotime('-10 days'));
+        $from = date('Y-m-d', strtotime('-90 days'));
         $to = date('Y-m-d');
 
         $str = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
